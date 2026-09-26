@@ -1,0 +1,16 @@
+{
+  "name": "tracedojo-action",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=22.23.1"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs"
+  },
+  "devDependencies": {
+    "@tracedojo/sdk": "0.1.2"
+  }
+}

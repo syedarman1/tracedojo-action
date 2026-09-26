@@ -1,0 +1,33 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Syed Arman
+name: Verify Action
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ["22.23.1", "24"]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm test
+      - name: Smoke-test composite action
+        uses: ./
+        with:
+          config: node_modules/@tracedojo/sdk/templates/workflow.json
+          adapter: node_modules/@tracedojo/sdk/templates/adapter.mjs
+          report: .tracedojo/action-smoke.json
+          trials: "1"
