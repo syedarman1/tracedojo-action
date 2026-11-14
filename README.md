@@ -4,6 +4,12 @@ Test how an AI agent recovers when its tools fail. This GitHub Action runs a
 TraceDojo workflow against your trusted adapter, records the result, and fails the
 job when outcome checks fail or the evidence is incomplete.
 
+This Action has no baseline. A pull request that fails the same checks as its
+base branch fails here too. To fail only on new regressions, use the workflow
+from `npx tracedojo init --ci` instead. That gate compares each PR with the
+exact base commit's saved report, passes PRs that only repeat the base's
+failures, and fails PRs as incomplete until the base branch has saved a report.
+
 ## Usage
 
 Use Node.js 22.23.1 or later. CI tests Node 22.23.1 and Node 24 on Linux.
